@@ -1,19 +1,35 @@
 public class ITIStringBuffer {
 
+    SinglyLinkedList<String> l;
+    int length;
+
     public ITIStringBuffer() {
-        throw new UnsupportedOperationException( "replace with your implementation" );
+        l = new SinglyLinkedList<String>();
     }
 
     public ITIStringBuffer(String  firstString){
-        throw new UnsupportedOperationException( "replace with your implementation" );
+        l = new SinglyLinkedList<String>();
+        l.add(firstString);
+        length += firstString.length();
     }
 
     public void append(String nextString){
-        throw new UnsupportedOperationException( "replace with your implementation" );
+        l.add(nextString);
+        length += nextString.length();
     }
 
     public String toString(){
-        throw new UnsupportedOperationException( "replace with your implementation" );
+        
+        char[] result = new char[length];
+        int index = 0;
+        for(String currentString : l) {
+            char[] c = currentString.toCharArray();
+            System.arraycopy(c, 0, result, index, c.length);
+            index += c.length;
+        }
+
+        return new String(result);
+
     }
 
 }

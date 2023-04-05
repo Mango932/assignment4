@@ -28,6 +28,26 @@ public class LinkedList<E> implements List<E> {
 
         private Node<E> current = head;
 
+        public LinkedListIterator(){
+        }
+
+        public LinkedListIterator(int startingIndex){
+            for(int i=0; i < startingIndex; i++) {
+
+                if(current.next == null) {
+                    throw new IndexOutOfBoundsException();
+                }
+
+                current = current.next;
+            }
+        }
+
+        public LinkedListIterator(Iterator <E> other) {
+            while(nextIndex() != other.nextIndex()) {
+                current = current.next;
+            }
+        }
+
         public boolean hasNext() {
             return (current.next != head);
         }
@@ -42,10 +62,35 @@ public class LinkedList<E> implements List<E> {
 
             return current.value;
         }
+
+        public int nextIndex() {
+            int index = 1;
+
+            Node<E> node = current;
+
+            if (node.value == head.value) {
+                return 0;
+            }
+
+            while (node.prev.value != null) {
+                index++;
+                node = node.prev;
+            }
+
+            return index;
+        }
     }
 
     public Iterator<E> iterator() {
         return new LinkedListIterator();
+    }
+
+    public Iterator <E> iterator(int nextIndex){
+        return new LinkedListIterator(nextIndex);
+    }
+
+    public Iterator <E> iterator(Iterator <E> other){
+        return new LinkedListIterator(other);
     }
 
     public int size() {
